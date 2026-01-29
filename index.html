@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>GeekHub 데이터 로더</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    .card {
+      width: 420px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #667eea;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #5a6fe0;
+    }
+
+    .api-box {
+      margin-top: 18px;
+      padding: 12px;
+      background: #f6f7fb;
+      border-radius: 10px;
+      display: none;
+      text-align: center;
+    }
+
+    .api-box a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #667eea;
+      word-break: break-all;
+      font-size: 13px;
+    }
+
+    .guide {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GeekHub 게시글 불러오기</h1>
+
+    <label for="nickname">닉네임 입력</label>
+    <input id="nickname" type="text" placeholder="예: 노잼" />
+
+    <button id="makeApiBtn">1. API 수동 불러오기</button>
+
+    <div class="api-box" id="apiBox">
+      <div>👇 아래 링크를 클릭해서 데이터를 복사해주세요.</div>
+      <a id="apiLink" href="#" target="_blank"></a>
+	  <div><b>Ctrl + A</b>로 전체선택 후, <b>Ctrl + C</b>로 복사</div>
+    </div>
+
+    <div class="guide">
+      <b>복사한 데이터</b>를<br />
+      아래 입력창에 <b>붙여넣기(Ctrl + V)</b>해주세요.
+    </div>
+
+    <textarea id="apiInput" placeholder="2. 여기에 API 데이터를 붙여넣기"></textarea>
+
+    <button id="loadBtn">3. 로드하기</button>
+  </div>
+
+  <script>
+    const nicknameInput = document.getElementById("nickname");
+    const makeApiBtn = document.getElementById("makeApiBtn");
+    const apiBox = document.getElementById("apiBox");
+    const apiLink = document.getElementById("apiLink");
+    const apiInput = document.getElementById("apiInput");
+    const loadBtn = document.getElementById("loadBtn");
+
+    makeApiBtn.addEventListener("click", () => {
+      const nickname = nicknameInput.value.trim();
+      if (!nickname) {
+        alert("닉네임을 입력해주세요!");
+        return;
+      }
+
+      const url = `https://api.geekhub.kr/api/v1/users/${nickname}/posts?page=0&size=10000`;
+      apiLink.href = url;
+      apiLink.textContent = url;
+      apiBox.style.display = "block";
+    });
+
+    loadBtn.addEventListener("click", () => {
+      const pastedApi = apiInput.value.trim();
+      if (!pastedApi) {
+        alert("API 주소를 붙여넣어 주세요!");
+        return;
+      }
+
+      localStorage.setItem("geekhub_api", pastedApi);
+      window.location.href = "./showdata.html";
+    });
+  </script>
+</body>
+</html>
