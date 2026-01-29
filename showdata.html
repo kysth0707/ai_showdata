@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>GeekHub 노잼 대시보드</title>
+    <title>GeekHub 게시글 대시보드</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -96,7 +96,7 @@
 
     <div class="grass-box">
 		<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-			<h3 style="margin:0">활동 잔디 지표</h3>
+			<h3 style="margin:0">잔디 지표</h3>
 			<div id="grass-tabs" style="display:flex; gap:8px;">
 				<button class="tab-btn active" onclick="renderGrass('post')"><i class="fas fa-pen"></i> 활동</button>
 				<button class="tab-btn" onclick="renderGrass('viewCount')" style="--blue:var(--gray)"><i class="fas fa-eye"></i> 조회</button>
@@ -351,4 +351,5 @@
     init();
 </script>
 </body>
+
 </html>
